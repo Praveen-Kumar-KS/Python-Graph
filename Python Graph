@@ -1,0 +1,55 @@
+# Generate the graph 
+# Input given in the code.
+# Compile Time execution
+
+arr=[3,1,2,3,6,2,3,6,2,3,6,3,2,3,6,2,3,4,3,2,5,4,2,1,2,1,2,3,1,2,6,2,3,6,2,3,6,3,2,3,1,5,3,2,1,2,4,2,1,8,1,2]
+max_so_far=0
+total=0
+peak_i=0
+total_i=0
+for i in range(len(arr)):
+    
+    if(i%2)==0:
+        total=total+arr[i]
+    else:
+        total=total-arr[i]
+    total_i=total_i+arr[i]
+    if(total>max_so_far):
+        max_so_far=total
+        peak=i+1
+        peak_i=total_i
+max_so_far=max_so_far+3
+i_coordinate=max_so_far-1
+j_coordinate=0
+length=sum(arr)+1
+matrix=[[" " for x in range(length)] for y in range(max_so_far)]
+matrix[0][peak_i]="o"
+matrix[1][peak_i-1]="/"
+matrix[1][peak_i]="|"
+matrix[1][peak_i+1]="\\"
+matrix[2][peak_i-1]="<"
+matrix[2][peak_i+1]=">"
+for i in range(len(arr)):
+    if i==peak:
+        for j in range(3,max_so_far):
+            matrix[j][peak_i]=" "
+        j_coordinate=j_coordinate+1
+    if i%2==0:
+        for j in range(arr[i]):
+            matrix[i_coordinate][j_coordinate]="/"
+            i_coordinate=i_coordinate-1
+            j_coordinate=j_coordinate+1
+    else:
+        i_coordinate=i_coordinate+1
+        for j in range(arr[i]):
+            
+            matrix[i_coordinate][j_coordinate]="\\"
+            i_coordinate=i_coordinate+1
+            j_coordinate=j_coordinate+1
+        i_coordinate=i_coordinate-1
+        
+for i in range(max_so_far):
+    for j in range (length):
+        print(matrix[i][j],end="")
+    print()
+        
